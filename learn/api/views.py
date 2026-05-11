@@ -10,6 +10,10 @@ from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.models import Group
 from rest_framework.permissions import BasePermission
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page  #for caching the login response for 2 minutes
+
+
 
 
 
@@ -111,7 +115,10 @@ class RegisterAPI(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+
 class LoginAPI(APIView):
+    @method_decorator(cache_page(60*2)) #cachee for 2 minutes
+    
     def post(self,request):
         data=request.data
         serializer=Loginserializer(data=data)

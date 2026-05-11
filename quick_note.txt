@@ -1,0 +1,76 @@
+ 
+#jwt token syntaxxx  
+
+
+
+
+ pip install djangorestframework-simplejwt
+ 
+ REST_FRAMEWORK = {
+
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    )
+}
+ 
+ 
+ 
+from rest_framework_simplejwt.tokens import RefreshToken
+ 
+ 
+ refresh = RefreshToken.for_user(user)
+
+        return Response({
+
+            'refresh': str(refresh),
+            'access': str(refresh.access_token),
+        })
+
+
+
+
+
+
+#throttling
+throttling means not leetting users to attempt may times to get into
+the websites same as bank doeesnot lets 
+
+
+syntaxx
+settings ma 
+
+REST_FRAMEWORK = {
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.AnonRateThrottle',
+        'rest_framework.throttling.UserRateThrottle'
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '100/day',
+        'user': '1000/day'
+    }
+}
+ in views we call for UserRateThrottle
+
+
+
+ ani beefore some api we usee this decoratoer
+ @throttle_classes([UserRateThrottle])
+
+    we also can use scope   
+
+
+class login_throttlee([UserRateThrottle])
+scope:'user'
+or
+scope:'teacher'
+or
+scope:'anon'
+
+
+class LoginAPI(APIView)
+throttle_classes= [login_throttlee]
+
