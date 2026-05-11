@@ -74,3 +74,34 @@ scope:'anon'
 class LoginAPI(APIView)
 throttle_classes= [login_throttlee]
 
+
+
+
+
+
+#filteering
+pip install djano-filter
+
+installed app 'django_filter'
+
+REST_FRAMEWORK = {
+
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend'
+    ]}
+
+
+
+views
+  #all in one  
+    filter_backends = [
+        DjangoFilterBackend,
+        SearchFilter,
+        OrderingFilter
+    ]
+
+    filterset_fields = ['grade', 'teacher']
+
+    search_fields = ['name']
+
+    ordering_fields = ['grade', 'name']

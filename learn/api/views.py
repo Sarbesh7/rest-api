@@ -136,3 +136,44 @@ class LoginAPI(APIView):
         else:
             return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
         
+        
+        
+        
+        
+#filtering the employee list based on the department
+
+class EmployeeListByDepartment(APIView):
+    def get(self, request, department):
+        employees = employee.objects.filter(department=department)
+        serializer = employeeserializer(employees, many=True)
+        user = self.request.user
+        return department.objects.filter(employee__in=employees, employee__user=user)
+ 
+#instead of this we can also use the django filter backend to filter the employee list based on the department and also we can use the search filter backend to search the employee list based on the name or email or department
+
+class ProductList(generics.ListAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['category', 'in_stock']
+    
+    #incase of search filter backend
+class ProductList(generics.ListAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    filter_backends = [SearchFilter]
+    search_fields = ['name', 'description', 'category']
+    
+    
+    #all in one  
+    filter_backends = [
+        DjangoFilterBackend,
+        SearchFilter,
+        OrderingFilter
+    ]
+
+    filterset_fields = ['grade', 'teacher']
+
+    search_fields = ['name']
+
+    ordering_fields = ['grade', 'name']
