@@ -19,4 +19,14 @@ class employee(models.Model):
     def __str__(self):
         return self.name   
     
-  
+``
+class teacher(models.Model):
+    name=models.CharField(max_length=100)
+   
+    
+class course(models.Model):
+    name=models.CharField(max_length=100)
+    
+    
+    teacher=models.ForeignKey(teacher,on_delete=models.CASCADE)
+    

@@ -34,3 +34,17 @@ class Registerserializer(serializers.ModelSerializer):
             password=validated_data['password']
         )
         return user
+    
+    
+
+#nested serializer for showing the teacher name in the course details
+class teacherserializer(serializers.ModelSerializer):
+    class Meta:
+        model=employee
+        fields='name'
+        
+class courseserializer(serializers.ModelSerializer):
+    teacher=teacherserializer()
+    class Meta:
+        model=blog
+        fields='__all__'   
