@@ -1,0 +1,86 @@
+nested serializer
+
+
+
+
+#models
+class teacher(models.Model):
+name=models.Charfield(max_length=100)
+
+
+class courses(models.Model):
+
+ name = models.CharField(max_length=100)
+
+    teacher = models.ForeignKey(
+        Teacher,
+        on_delete=models.CASCADE
+        
+        )
+
+
+#serializer
+
+class teacherSerializer(serializers.ModelSerializer):
+   class Meta:
+   model:teacher
+   fields:_all_
+
+
+class courseSerilaizer(serializer.ModelSerializer)
+  teacher=teacherSerializer()
+
+  class Meta:
+  model : course
+  fields: _all_
+
+
+
+
+
+
+
+#authoroziation
+Group.objects.get_or_create(name=Boss)
+
+import permission_classes
+ permission_classes=[IsBoss]
+ permission_classes=[IsAuthenticated]
+
+
+data=request.data
+serializer=Loginserializer(data=data)
+
+if not serializer.is_valid():
+return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+
+username=serializer.validated_data['username]
+password=serializer.validataed_data['password]
+
+
+
+
+ user_object=authenticate(username=username ,password=password)
+
+ if user_object:
+ refresh = RefreshToken.for_user(user)
+return Response('refresh':str(refresh) , access:str(refresh.access_token))
+
+
+
+
+class RegisterAPI(APIView):
+ def post(self,request):
+ data=request.data 
+ serializer=Registerserializer(data=data)
+
+if serializer.is_valid():
+user=serializer.save()
+refresh=RefreshToken.for_user(user)
+
+return response('refresh':str(refresh), 'access':str(refresh.access_token))
+
+return Response(serializer.errors,status=staus.HTTP_400_BAD_REQUEST)
+
+
+

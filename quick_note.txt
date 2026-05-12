@@ -105,3 +105,43 @@ views
     search_fields = ['name']
 
     ordering_fields = ['grade', 'name']
+
+
+
+
+
+#pagination
+pagianation is how much data to return at one request such as 
+GET /students/   ; may get all the data at once which will make the api slow so
+we use pagination to not make the api slow and only seend the certain amount of data 
+ at once 
+
+syntaxx
+we first add pagination logic in  rest_framework
+so we add 
+
+
+REST_FRAMEWORK = {
+
+    'DEFAULT_PAGINATION_CLASS':
+        'rest_framework.pagination.PageNumberPagination',
+
+    'PAGE_SIZE': 5
+}
+
+there are three types of pagination
+1  PageNumberPagination	---- according to the page number
+2 LimitOffsetPagination	-----limit=10 --
+3 CursorPagination --advanced
+
+
+1 PageNumberPagination most common method this method no syntax is needed in views 
+after adding the pagination class in rest_framework all the api will now return as per the page
+sizee given by the user in the class  {this is automatic no need to do anything}
+
+2 LimitOffsetPagination
+
+
+
+
+
