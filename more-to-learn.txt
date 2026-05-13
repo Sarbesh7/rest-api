@@ -1,0 +1,68 @@
+media upload
+
+media upload needs pillow to perform
+   pip install pillow
+
+
+   in models
+   class image(models.Model):
+   name=models.CharField(max_length=100)
+   profile_picture=models.Imagefield(upload_to='profile')
+
+   here profle is the folder where the image would be stored 
+
+in serializer
+class imageSerializer(serializers.ModelSerializer)
+   class META:
+   model:image
+   fields:_all_ 
+ 
+
+
+
+   in settings.py we
+   do
+
+
+   MEDIA_URL = '/media/'
+
+MEDIA_ROOT = BASE_DIR / 'media'
+
+
+and in main url we do    (only for productions)
+
+
+from django.conf import settings
+from django.conf.urls.static import static
+
+urlpatterns += static(
+    settings.MEDIA_URL,
+    document_root=settings.MEDIA_ROOT
+)
+
+
+
+normal views
+def upload_student(request):
+ if request.method='POST':
+   name=request.POST.get('name')
+   picture=request.POST.get('profile_picture')
+
+   Students.objects.create(
+    name=name,
+    profile_picture=picture
+
+   )
+  return httpresponse('uploaded)
+
+drf
+
+class upload_student(APIView)
+ def post(self,request)
+ serializer=upload_studentSerializer(data=request.data)
+ if serializer is_valid():
+ 
+    serializer.save()
+     return response('upload sucessfull')
+
+retun response('bbad request')
