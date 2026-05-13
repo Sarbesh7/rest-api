@@ -20,7 +20,7 @@ class courses(models.Model):
 
 
 #serializer
-
+nested 
 class teacherSerializer(serializers.ModelSerializer):
    class Meta:
    model:teacher
@@ -33,6 +33,60 @@ class courseSerilaizer(serializer.ModelSerializer)
   class Meta:
   model : course
   fields: _all_
+
+
+
+
+
+
+
+
+
+
+
+
+#methodfield 
+when model doesnot have all the necessary fields we can use this
+
+model
+class teacher(models.Model):
+name=models.Charfield(max_length=100)
+age=models.IntegerField()
+
+class teacherSerializer(models.Model):
+class Meta: 
+model:teacher
+fields:['name','age','category']
+
+def get_category()
+ if age>50
+    return "old"
+return "new"
+
+
+
+readonly/
+write only
+
+id are rea only and passwords shouuld nevver come on response so write only
+examples
+
+readonly
+
+class exampleSerializer(serializers.ModelSerializer):
+ id=serializers.IntegerField(readonly=True)
+ password=serializers.CharField(write_only=True)
+
+
+
+
+
+
+
+
+
+
+
 
 
 

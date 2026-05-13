@@ -23,6 +23,10 @@ class Loginserializer(serializers.Serializer):
     
     
 class Registerserializer(serializers.ModelSerializer):
+    #write_only=True means that the password field will not be included in the serialized output when retrieving user data, but it will be required when creating a new user.
+    
+    password=serializers.CharField(write_only=True)
+    
     class Meta:
         model=User
         fields=('username','email','password')
